@@ -12,3 +12,5 @@ test_llms/
 .DS_Store
 .o1_venv/
 .venv/
+evaluation/table_few_counting_words_ft_gpt-3.5-turbo-0613_personal_count-10shot_9NYCyc4X.tsv
+evaluation/table_few_counting_words_ft_gpt-3.5-turbo-0613_personal_count-100shot_9NYN8hZQ.tsv
