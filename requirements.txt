@@ -1,0 +1,22 @@
+# Core data processing and NLP
+datasets
+jsonlines
+nltk
+tiktoken
+
+# Local language-model generation and scoring
+torch
+transformers
+
+# Model-provider clients
+openai
+anthropic
+google-generativeai
+together
+
+# Async OpenAI helper dependencies
+aiohttp
+aiolimiter
+
+# Progress bars
+tqdm
