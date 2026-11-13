@@ -2,6 +2,7 @@
 datasets
 jsonlines
 nltk
+scikit-learn
 tiktoken
 
 # Local language-model generation and scoring
