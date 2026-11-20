@@ -43,7 +43,7 @@ conda activate /temp/group5_MY_OWN_MINICONDA_MARCH26/Miniconda3-py312_26.1.1-1-L
 
 echo "pip installing"
 
-pip install -r /home/seminar_group5/embers-of-autoregression/requirements.txt
+pip install -r /home/seminar_group5/embers-of-autoregression_joke/requirements.txt
 
 echo "testing the environment"
 
@@ -53,17 +53,17 @@ print("Torch version:", torch.__version__)
 EOF
 
 cd /temp
-cp -r /home/seminar_group5/embers-of-autoregression .
-cd /temp/embers-of-autoregression
+cp -r /home/seminar_group5/embers-of-autoregression_joke .
+cd /temp/embers-of-autoregression_joke
 ./experiment_commands.sh
-cp -r ./logs /home/seminar_group5/embers-of-autoregression/logs
+cp -r ./logs /home/seminar_group5/embers-of-autoregression_joke/logs
 cd /temp
 echo "FINISH: $(date)"
 
 echo "DONE"
 
 cd ..
-rm -rf /temp/embers-of-autoregression
+rm -rf /temp/embers-of-autoregression_joke
 rm -rf group5_tmp
 rm -rf group5_MY_OWN_MINICONDA_MARCH26
 rm -rf group5_CACHE_MY_OWN_MINICONDA_MARCH26
