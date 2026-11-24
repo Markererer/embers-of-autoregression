@@ -8,6 +8,7 @@ tiktoken
 # Local language-model generation and scoring
 torch
 transformers
+accelerate
 
 # Model-provider clients
 openai
