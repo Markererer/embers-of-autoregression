@@ -204,6 +204,51 @@ python run_openai.py --tasks sorting --conditions fwd,rev,ascending,descending -
 python run_openai.py --tasks sorting --conditions fwd,rev,ascending,descending --max_tokens 200 --model gpt-3.5-turbo-0613
 ```
 # Generating the graphs
+For generating the graphs, the scripts graph.py and rare_vs_common_graph.py need to be ran. They take the data from the viz_data directory.
 
+In order to run the files on any desired json file, the following lines from it must be modified, as they are hard coded.
 
+## graphs.py
+
+To use this script, first modify the constants referring to the directory paths for saving and utilizing the files you want.
+```
+DATA_DIR = "viz_data/logs_ollama" #directory where the data to be used it
+OUTPUT_DIR = "graphs" #directory where the graphs will be saved
+OUT_NAME = "Qwen3.8-27B_graphs" #name of the graph generated
+```
+Additionally, there are a few optional parameters that were hard coded as part of the limitation of reproducing the original research, used to accommodate our naming conventions. They can be deleted or reused depending on other name conventions.
+```
+SUFFIX = "n=1.json" #optional addition to the path to accommodate name convention
+COND = {"low": "lowprob", "medium": "mediumprob", "high": "highprob"} #optional addition to the path to accommodate name convention
+
+#Construction of the file path to use for graphs
+def levels(prefix):
+    """Paths for the three probability levels of one task/variant and model."""
+    return {lvl: os.path.join(DATA_DIR, f"{prefix}_{cond}_{SUFFIX}")
+            for lvl, cond in COND.items()}
+```
+The graph computed by the script is a collage of different graphs, in order to show the performance across all different tasks that were tested. Each task is represented by a panel in the graph. Each panel must be manually added in the following way, subsequent panels repeating the pattern.
+``` 
+PANELS = [
+    #This represents one graph / panel inside the graph collage
+    dict(title="Shift cipher enc (rot-12)", logprob="rot", runs={
+        "Qwen3.8-27B": levels("rot12enc", "Qwen3.8-27B"), #"Qwen3.8-27B": represents the name that will appear on the legend for what model is being plotted
+    }),
+    #This represents a second graph / panel inside the graph collage
+    dict(title="Shift cipher dec (rot-12)", logprob="rot", runs={
+        "Qwen3.8-27B": levels("rot12dec", "Qwen3.8-27B"),
+    }),
+]
+```
+There is another hard codded element into the previous code, which is the x axis of the panels. It represents the log probability of the tasks that were being tested, and the original work does not provide a computation method for them, so we hard coded them in a similar fashion. If needed, these should be changed to accommodate the graphs being generated. Ideally, they should not be hard coded like we did.
+```
+#x axes for each task
+STIMULUS_LOGPROB = {
+    "rot":      {"low": -144.54, "medium": -86.25, "high": -58.38}, 
+    "pig":      {"low": -132.26, "medium": -86.86, "high": -62.54},
+    "reversal": {"low": -144.54, "medium": -86.25, "high": -58.38},
+    "swap":     {"low": -161.4,  "medium": -101.7, "high": -68.4},
+}
+```
+## rare_vs_common_graph.py
 
