@@ -22,7 +22,7 @@ SUFFIX = "n=1.json"
 COND = {"low": "lowprob", "medium": "mediumprob", "high": "highprob"}
 
 
-def levels(prefix, model):
+def levels(prefix):
     """Paths for the three probability levels of one task/variant and model."""
     return {lvl: os.path.join(DATA_DIR, f"{prefix}_{cond}_{SUFFIX}")
             for lvl, cond in COND.items()}
@@ -32,30 +32,29 @@ def levels(prefix, model):
 # Remove a level from a dict (or a whole model/panel) if you don't have it.
 PANELS = [
     dict(title="Shift cipher enc (rot-12)", logprob="rot", runs={
-        "Qwen3.8-27B": levels("rot12enc", "Qwen3.8-27B"),
+        "Qwen3.8-27B": levels("rot12enc"),
     }),
     dict(title="Shift cipher dec (rot-12)", logprob="rot", runs={
-        "Qwen3.8-27B": levels("rot12dec", "Qwen3.8-27B"),
+        "Qwen3.8-27B": levels("rot12dec"),
     }),
     dict(title="Shift cipher enc (rot-13)", logprob="rot", runs={
-        "Qwen3.8-27B": levels("rot13enc", "Qwen3.8-27B"),
+        "Qwen3.8-27B": levels("rot13enc"),
     }),
     dict(title="Shift cipher dec (rot-13)", logprob="rot", runs={
-        "Qwen3.8-27B": levels("rot13dec", "Qwen3.8-27B"),
+        "Qwen3.8-27B": levels("rot13dec"),
     }),
     dict(title="Pig Latin Enc", logprob="pig", runs={
-        "Qwen3.8-27B": levels("pigenc_ay", "Qwen3.8-27B"),
+        "Qwen3.8-27B": levels("pigenc_ay"),
     }),
     dict(title="Pig Latin Dec", logprob="pig", runs={
-        "Qwen3.8-27B": levels("pigdec_ay", "Qwen3.8-27B"),
+        "Qwen3.8-27B": levels("pigdec_ay"),
     }),
     dict(title="Rev Enc", logprob="reversal", runs={
-        "Qwen3.8-27B": levels("revenc", "Qwen3.8-27B"),
+        "Qwen3.8-27B": levels("revenc"),
     }),
     dict(title="Rev Dec", logprob="reversal", runs={
-        "Qwen3.8-27B": levels("revdec", "Qwen3.8-27B"),
+        "Qwen3.8-27B": levels("revdec"),
     }),
-    # Another model: add  "other-model": levels("rot13dec", "other-model")  to a panel's runs.
 ]
 
 # Stimulus log probabilities (properties of the task data, not results).
