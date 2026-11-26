@@ -13,9 +13,10 @@ import numpy as np
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 
 # ============================== Inputs (edit this) ==============================
-DATA_DIR = "viz_data/logs_ollama"
+DATA_DIR = "viz_data/logs_gpt-oss-20B"
+DATA_DIR2 = "viz_data/logs_qwen3.8-27B"
 OUTPUT_DIR = "graphs"
-OUT_NAME = "thinking_len"
+OUT_NAME = "think_len_graphs"
 SUFFIX = "n=1.json"
 
 SHOW_IQR = False       # shade the 25th-75th percentile band around each median
@@ -26,37 +27,43 @@ FALLBACK_TO_RES = False   # True: files without a 'thinking' key use the part of
 COND = {"low": "lowprob", "medium": "mediumprob", "high": "highprob"}   # change if your files say "medprob"
 
 
-def levels(prefix):
-    """Paths for the three probability levels of one task/variant and model."""
-    return {lvl: os.path.join(DATA_DIR, f"{prefix}_{cond}_{SUFFIX}")
-            for lvl, cond in COND.items()}
+def levels(prefix, data_dir):
+    return {lvl: os.path.join(data_dir, f"{prefix}_{cond}_{SUFFIX}") for lvl, cond in COND.items()}
 
 
 # panel title, stimulus log-prob set, {model label: {level: path}}
 PANELS = [
     dict(title="Shift cipher enc (rot-12)", logprob="rot", runs={
-        "Qwen3.8-27B": levels("rot12enc"),
+        "gpt-oss-20B": levels("rot12enc", DATA_DIR),
+        "Qwen3.8-27B": levels("rot12enc", DATA_DIR2),
     }),
     dict(title="Shift cipher dec (rot-12)", logprob="rot", runs={
-        "Qwen3.8-27B": levels("rot12dec"),
+        "gpt-oss-20B": levels("rot12dec", DATA_DIR),
+        "Qwen3.8-27B": levels("rot12dec", DATA_DIR2),
     }),
     dict(title="Shift cipher enc (rot-13)", logprob="rot", runs={
-        "Qwen3.8-27B": levels("rot13enc"),
+        "gpt-oss-20B": levels("rot13enc", DATA_DIR),
+        "Qwen3.8-27B": levels("rot13enc", DATA_DIR2),
     }),
     dict(title="Shift cipher dec (rot-13)", logprob="rot", runs={
-        "Qwen3.8-27B": levels("rot13dec"),
+        "gpt-oss-20B": levels("rot13dec", DATA_DIR),
+        "Qwen3.8-27B": levels("rot13dec", DATA_DIR2),
     }),
     dict(title="Pig Latin Enc", logprob="pig", runs={
-        "Qwen3.8-27B": levels("pigenc_ay"),
+        "gpt-oss-20B": levels("pigenc_ay", DATA_DIR),
+        "Qwen3.8-27B": levels("pigenc_ay", DATA_DIR2),
     }),
     dict(title="Pig Latin Dec", logprob="pig", runs={
-        "Qwen3.8-27B": levels("pigdec_ay"),
+        "gpt-oss-20B": levels("pigdec_ay", DATA_DIR),
+        "Qwen3.8-27B": levels("pigdec_ay", DATA_DIR2),
     }),
     dict(title="Rev Enc", logprob="reversal", runs={
-        "Qwen3.8-27B": levels("revenc"),
+        "gpt-oss-20B": levels("revenc", DATA_DIR),
+        "Qwen3.8-27B": levels("revenc", DATA_DIR2),
     }),
     dict(title="Rev Dec", logprob="reversal", runs={
-        "Qwen3.8-27B": levels("revdec"),
+        "gpt-oss-20B": levels("revdec", DATA_DIR),
+        "Qwen3.8-27B": levels("revdec", DATA_DIR2),
     }),
 ]
 
@@ -67,7 +74,7 @@ STIMULUS_LOGPROB = {          # source: logprob_* in embers_0504_alldecoding.R
     "swap":     {"low": -161.4,  "medium": -101.7, "high": -68.4},
 }
 
-PALETTE = ["#C77CFF", "#00BFC4", "#F8766D", "#B79F00", "#00BA38", "#00A9FF"]
+PALETTE = ["#F72811", "#C77CFF", "#F8766D", "#B79F00", "#00BA38", "#00A9FF"] # #C77CFF Qwen Color / #F72811 gpt Color
 MARKERS = ["s", "^", "o", "D", "o", "v"]
 MARKER_SIZES = [8, 8, 8, 8, 6, 8]
 # optional per-model look (the paper draws o1-preview as a blue downward triangle)
@@ -78,22 +85,19 @@ MODEL_STYLE = {
 
 # ============================== Thinking length ==============================
 def thinking_lengths(d, path):
-    """Character length of each example's thinking text, or None if the file has none."""
+    """Character length of each example's thinking.
+
+    - File has a 'thinking' field (e.g. Qwen): length of each thinking string.
+    - No 'thinking' field (e.g. gpt-oss, chain of thought lives in 'res'): length of each 'res' string.
+    """
     name = os.path.basename(path)
     if "thinking" in d:
         th = d["thinking"]
         if len(th) != len(d["res"]):
             raise ValueError(f"{name}: 'thinking' and 'res' lengths differ")
         return np.array([len(t) if isinstance(t, str) else 0 for t in th], dtype=float)
-    if FALLBACK_TO_RES:
-        texts = []
-        for r in d["res"]:
-            r = r.split("assistantfinal")[0]
-            texts.append(r[len("analysis"):] if r.startswith("analysis") else r)
-        print(f"NOTE {name}: no 'thinking' key; using the text of 'res' before 'assistantfinal'.")
-        return np.array([len(t) for t in texts], dtype=float)
-    print(f"SKIPPED {name}: no 'thinking' key.")
-    return None
+    print(f"NOTE {name}: no 'thinking' field; using the length of 'res'.")
+    return np.array([len(r) if isinstance(r, str) else 0 for r in d["res"]], dtype=float)
 
 
 def load_point(path):
