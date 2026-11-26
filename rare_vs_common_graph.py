@@ -113,7 +113,7 @@ def main():
                 strip(ax, col, "top")
             if c == len(cols) - 1:
                 strip(ax, m, "right")
-    fig.supylabel("Accuracy", fontsize=10)
+    fig.supylabel("Accuracy", fontsize=10, x=0.005)
 
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     out = os.path.join(OUTPUT_DIR, f"{OUT_NAME}.png")
