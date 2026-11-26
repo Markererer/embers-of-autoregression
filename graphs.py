@@ -14,17 +14,17 @@ import numpy as np
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 
 # ============================== Inputs (edit this) ==============================
-DATA_DIR = "viz_data/logs"
+DATA_DIR = "viz_data/logs_ollama"
 OUTPUT_DIR = "graphs"
-OUT_NAME = "embers_decoding"
-SUFFIX = "temp=0.7_n=1.json"
+OUT_NAME = "ollama_graphs"
+SUFFIX = "n=1.json"
 
 COND = {"low": "lowprob", "medium": "mediumprob", "high": "highprob"}
 
 
 def levels(prefix, model):
     """Paths for the three probability levels of one task/variant and model."""
-    return {lvl: os.path.join(DATA_DIR, f"{prefix}_{cond}_{model}_{SUFFIX}")
+    return {lvl: os.path.join(DATA_DIR, f"{prefix}_{cond}_{SUFFIX}")
             for lvl, cond in COND.items()}
 
 
@@ -32,16 +32,19 @@ def levels(prefix, model):
 # Remove a level from a dict (or a whole model/panel) if you don't have it.
 PANELS = [
     dict(title="Shift cipher (rot-13)", logprob="rot", runs={
-        "gpt-oss-20b": levels("rot13dec", "gpt-oss-20b"),
+        "ollama": levels("rot13enc", "Qwen3.8-27B"),
     }),
-    dict(title="Shift cipher (rot-12)", logprob="rot", runs={
-        "gpt-oss-20b": levels("rot12dec", "gpt-oss-20b"),
+    dict(title="Pig Latin Enc", logprob="pig", runs={
+        "ollama": levels("pigenc_ay", "Qwen3.8-27B"),
     }),
-    dict(title="Pig Latin (ay)", logprob="pig", runs={
-        "gpt-oss-20b": levels("pigdec_ay", "gpt-oss-20b"),
+    dict(title="Pig Latin Dec", logprob="pig", runs={
+            "ollama": levels("pigdec_ay", "Qwen3.8-27B"),
+        }),
+    dict(title="Rev Enc", logprob="reversal", runs={
+        "ollama": levels("revenc", "Qwen3.8-27B"),
     }),
-    dict(title="Pig Latin (uv)", logprob="pig", runs={
-        "gpt-oss-20b": levels("pigdec_uv", "gpt-oss-20b"),
+    dict(title="Rev Dec", logprob="reversal", runs={
+        "ollama": levels("revdec", "Qwen3.8-27B"),
     }),
     # Another model: add  "other-model": levels("rot13dec", "other-model")  to a panel's runs.
 ]
