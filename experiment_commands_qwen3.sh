@@ -6,7 +6,7 @@ python run_ollama_qwen3_27b.py --tasks rot13enc,rot13dec,rot12enc,rot12dec --con
 
 python run_ollama_qwen3_27b.py --tasks revenc,revdec --conditions highprob,mediumprob,lowprob,adversarial 
 
-#Sorting a list / Keyboard cipher task
+#Sorting a list
 
 python run_ollama_qwen3_27b.py --tasks sorting --conditions fwd,rev,ascending,descending
 

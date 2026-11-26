@@ -6,9 +6,9 @@ python run_openai_locally.py --tasks rot13enc,rot13dec,rot12enc,rot12dec --condi
 
 python run_openai_locally.py --tasks revenc,revdec --conditions highprob,mediumprob,lowprob,adversarial --max_tokens 200 --model gpt-oss-20b
 
-#Sorting a list / Keyboard cipher task
+#Sorting a list
 
-python run_openai_locally.py --tasks keyboardcot,keyboardcotreference,keyboardcotdetailed --conditions highprob --max_tokens 4000 --model gpt-oss-20b
+python run_openai_locally.py --tasks sorting --conditions fwd,rev,ascending,descending --max_tokens 200 --model gpt-oss-20b
 
 # Pig Latin - encode + decode
 
