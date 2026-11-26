@@ -240,9 +240,9 @@ PANELS = [
     }),
 ]
 ```
-There is another hard codded element into the previous code, which is the y axis of the panels. It represents the log probability of the tasks that were being tested, and the original work does not provide a computation method for them, so we hard coded them in a similar fashion. If needed, these should be changed to accommodate the graphs being generated. Ideally, they should not be hard coded like we did.
+There is another hard codded element into the previous code, which is the x axis of the panels. It represents the log probability of the tasks that were being tested, and the original work does not provide a computation method for them, so we hard coded them in a similar fashion. If needed, these should be changed to accommodate the graphs being generated. Ideally, they should not be hard coded like we did.
 ```
-#y axes for each task
+#x axes for each task
 STIMULUS_LOGPROB = {
     "rot":      {"low": -144.54, "medium": -86.25, "high": -58.38}, 
     "pig":      {"low": -132.26, "medium": -86.86, "high": -62.54},
