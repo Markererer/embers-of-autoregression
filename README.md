@@ -3,6 +3,8 @@
 
 # Preproducing Embers of Autoregression
 
+**Authors:** Mark Assejev, Bent Joke Heinks, Dimitar Kochev, Gabriel Ionescu
+
 This repository was used to reproduce the Embers of Autoregression in Reasoning LLMs paper.  
 [Original repository](https://github.com/tommccoy1/embers-of-autoregression.git)
 
