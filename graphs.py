@@ -16,7 +16,7 @@ from mpl_toolkits.axes_grid1 import make_axes_locatable
 # ============================== Inputs (edit this) ==============================
 DATA_DIR = "viz_data/logs_ollama"
 OUTPUT_DIR = "graphs"
-OUT_NAME = "ollama_graphs"
+OUT_NAME = "Qwen3.8-27B_graphs"
 SUFFIX = "n=1.json"
 
 COND = {"low": "lowprob", "medium": "mediumprob", "high": "highprob"}
@@ -31,20 +31,29 @@ def levels(prefix, model):
 # panel title, which stimulus log-prob set to use, {model label: {level name: path}}.
 # Remove a level from a dict (or a whole model/panel) if you don't have it.
 PANELS = [
-    dict(title="Shift cipher (rot-13)", logprob="rot", runs={
-        "ollama": levels("rot13enc", "Qwen3.8-27B"),
+    dict(title="Shift cipher enc (rot-12)", logprob="rot", runs={
+        "Qwen3.8-27B": levels("rot12enc", "Qwen3.8-27B"),
+    }),
+    dict(title="Shift cipher dec (rot-12)", logprob="rot", runs={
+        "Qwen3.8-27B": levels("rot12dec", "Qwen3.8-27B"),
+    }),
+    dict(title="Shift cipher enc (rot-13)", logprob="rot", runs={
+        "Qwen3.8-27B": levels("rot13enc", "Qwen3.8-27B"),
+    }),
+    dict(title="Shift cipher dec (rot-13)", logprob="rot", runs={
+        "Qwen3.8-27B": levels("rot13dec", "Qwen3.8-27B"),
     }),
     dict(title="Pig Latin Enc", logprob="pig", runs={
-        "ollama": levels("pigenc_ay", "Qwen3.8-27B"),
+        "Qwen3.8-27B": levels("pigenc_ay", "Qwen3.8-27B"),
     }),
     dict(title="Pig Latin Dec", logprob="pig", runs={
-            "ollama": levels("pigdec_ay", "Qwen3.8-27B"),
-        }),
+        "Qwen3.8-27B": levels("pigdec_ay", "Qwen3.8-27B"),
+    }),
     dict(title="Rev Enc", logprob="reversal", runs={
-        "ollama": levels("revenc", "Qwen3.8-27B"),
+        "Qwen3.8-27B": levels("revenc", "Qwen3.8-27B"),
     }),
     dict(title="Rev Dec", logprob="reversal", runs={
-        "ollama": levels("revdec", "Qwen3.8-27B"),
+        "Qwen3.8-27B": levels("revdec", "Qwen3.8-27B"),
     }),
     # Another model: add  "other-model": levels("rot13dec", "other-model")  to a panel's runs.
 ]
