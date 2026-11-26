@@ -204,7 +204,7 @@ python run_openai.py --tasks sorting --conditions fwd,rev,ascending,descending -
 python run_openai.py --tasks sorting --conditions fwd,rev,ascending,descending --max_tokens 200 --model gpt-3.5-turbo-0613
 ```
 # Generating the graphs
-For generating the graphs, the scripts graph.py and rare_vs_common_graph.py. They take the data from the viz_data directory.
+For generating the graphs, the scripts graph.py and rare_vs_common_graph.py need to be ran. They take the data from the viz_data directory.
 
 In order to run the files on any desired json file, the following lines from it must be modified, as they are hard coded.
 
@@ -221,23 +221,26 @@ Additionally, there are a few optional parameters that were hard coded as part o
 SUFFIX = "n=1.json" #optional addition to the path to accommodate name convention
 COND = {"low": "lowprob", "medium": "mediumprob", "high": "highprob"} #optional addition to the path to accommodate name convention
 
-#Construction of the file path to use
+#Construction of the file path to use for graphs
 def levels(prefix):
     """Paths for the three probability levels of one task/variant and model."""
     return {lvl: os.path.join(DATA_DIR, f"{prefix}_{cond}_{SUFFIX}")
             for lvl, cond in COND.items()}
-
 ```
-The graph computed by the script is a collage of different graphs, in order to show the performance across all different tasks that were tested. Each graph is represented by a panel. Each panel must be manually added in the following way, subsequent panels repeating the pattern.
+The graph computed by the script is a collage of different graphs, in order to show the performance across all different tasks that were tested. Each task is represented by a panel in the graph. Each panel must be manually added in the following way, subsequent panels repeating the pattern.
 ``` 
 PANELS = [
-    #This represents one graph inside the graph collage
+    #This represents one graph / panel inside the graph collage
     dict(title="Shift cipher enc (rot-12)", logprob="rot", runs={
-        "Qwen3.8-27B": levels("rot12enc", "Qwen3.8-27B"),
+        "Qwen3.8-27B": levels("rot12enc", "Qwen3.8-27B"), #"Qwen3.8-27B": represents the name that will appear on the legend for what model is being plotted
+    }),
+    #This represents a second graph / panel inside the graph collage
+    dict(title="Shift cipher dec (rot-12)", logprob="rot", runs={
+        "Qwen3.8-27B": levels("rot12dec", "Qwen3.8-27B"),
     }),
 ]
 ```
-There is another hard codded element into the previous code, which is the y axis of the graphs. It represents the log probability of the tasks that were being tested, and the original work does not provide a computation method for them, so we hard coded them in a similar fashion. If needed, these should be changed to accommodate the graphs being generated.
+There is another hard codded element into the previous code, which is the y axis of the panels. It represents the log probability of the tasks that were being tested, and the original work does not provide a computation method for them, so we hard coded them in a similar fashion. If needed, these should be changed to accommodate the graphs being generated. Ideally, they should not be hard coded like we did.
 ```
 #y axes for each task
 STIMULUS_LOGPROB = {
