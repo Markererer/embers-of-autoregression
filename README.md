@@ -29,8 +29,10 @@ The commands given in the rest of this README show how to run the tests for Qwen
 - Run these commands:
 ```
 # Rot-13
-python run_openai.py --tasks rot13enc,rot13dec,rot12enc,rot12dec --conditions highprob,mediumprob,lowprob,adversarial --max_tokens 200  --model gpt-4-0613
-python run_openai.py --tasks rot13enc,rot13dec,rot12enc,rot12dec --conditions highprob,mediumprob,lowprob,adversarial --max_tokens 200  --model gpt-3.5-turbo-0613
+python run_openai_locally.py --tasks rot13enc,rot13dec,rot12enc,rot12dec --conditions highprob,mediumprob,lowprob,adversarial --max_tokens 200  --model gpt-oss-20b
+
+python run_ollama_qwen3_27b.py --tasks rot13enc,rot13dec,rot12enc,rot12dec --conditions highprob,mediumprob,lowprob,adversarial  
+
 
 ```
 
@@ -46,8 +48,10 @@ python run_openai.py --tasks rot13enc,rot13dec,rot12enc,rot12dec --conditions hi
 ## Model testing
 - Run these commands:
 ```
-python run_openai.py --tasks revenc,revdec --conditions highprob,mediumprob,lowprob,adversarial --max_tokens 200 --model gpt-4-0613
-python run_openai.py --tasks revenc,revdec --conditions highprob,mediumprob,lowprob,adversarial --max_tokens 200 --model gpt-3.5-turbo-0613
+python run_openai_locally.py --tasks revenc,revdec --conditions highprob,mediumprob,lowprob,adversarial --max_tokens 200 --model gpt-oss-20b
+
+python run_ollama_qwen3_27b.py --tasks revenc,revdec --conditions highprob,mediumprob,lowprob,adversarial 
+
 ```
 
 # Swapping task
@@ -66,9 +70,12 @@ python swap_next_prev.py
 
 ## Model testing
 - Run these commands:
+
 ```
-python run_openai.py --tasks swap_base_next,swap_base_prev,swap_next_base,swap_prev_base --conditions highprob,mediumprob,lowprob --max_tokens 200 --model gpt-4-0613
-python run_openai.py --tasks swap_base_next,swap_base_prev,swap_next_base,swap_prev_base --conditions highprob,mediumprob,lowprob --max_tokens 200 --model gpt-3.5-turbo-0613
+python run_openai_locally.py --tasks zeroshot_swap_next_base,zeroshot_swap_prev_base --conditions highprob,mediumprob,lowprob --max_tokens 200 --model gpt-oss-20b
+
+python run_ollama_qwen3_27b.py --tasks zeroshot_swap_next_base,zeroshot_swap_prev_base --conditions highprob,mediumprob,lowprob 
+
 ```
 
 
@@ -92,11 +99,10 @@ python piglatin_consonant_check.py
 ## Model testing
 - Run these commands:
 ```
-python run_openai.py --tasks pigenc_ay,pigdec_ay,pigenc_uv,pigdec_uv --conditions highprob,mediumprob,lowprob,adversarial --max_tokens 200 --model gpt-4-0613
-python run_openai.py --tasks pigenc_ay,pigdec_ay,pigenc_uv,pigdec_uv --conditions highprob,mediumprob,lowprob,adversarial --max_tokens 200 --model gpt-3.5-turbo-0613
+python run_openai_locally.py --tasks pigenc_ay,pigdec_ay,pigenc_uv,pigdec_uv --conditions highprob,mediumprob,lowprob,adversarial --max_tokens 200 --model gpt-oss-20b
 
-python run_openai.py --tasks pigenc_way,pigdec_way,pigenc_yay,pigdec_yay,pigenc_hay,pigdec_hay,pigenc_say,pigdec_say --conditions highprob,mediumprob,lowprob,adversarial --max_tokens 200 --model gpt-4-0613
-python run_openai.py --tasks pigenc_way,pigdec_way,pigenc_yay,pigdec_yay,pigenc_hay,pigdec_hay,pigenc_say,pigdec_say --conditions highprob,mediumprob,lowprob,adversarial --max_tokens 200 --model gpt-3.5-turbo-0613
+python run_ollama_qwen3_27b.py --tasks pigenc_ay,pigdec_ay,pigenc_uv,pigdec_uv --conditions highprob,mediumprob,lowprob,adversarial 
+
 ```
 
 
@@ -133,8 +139,11 @@ python probability_cmu.py
 ## Model testing
 - Run these commands:
 ```
-python run_openai.py --tasks acronym2 --conditions 11,21  --max_tokens 100 --model gpt-4-0613 
-python run_openai.py --tasks acronym2 --conditions 11,21 --max_tokens 100 --model gpt-3.5-turbo-0613
+python run_openai_locally.py --tasks acronym1 --conditions 11  --max_tokens 100 --model gpt-oss-20b
+python run_openai_locally.py --tasks acronym2 --conditions 11  --max_tokens 100 --model gpt-oss-20b
+
+python run_ollama_qwen3_27b.py --tasks acronym1 --conditions 11 
+python run_ollama_qwen3_27b.py --tasks acronym2 --conditions 11 
 ```
 
 # Conversion task
@@ -159,29 +168,13 @@ This code repository uses names for the conditions that differ somewhat from how
 ## Model testing
 - Run these commands:
 ```
-python run_openai.py --tasks conversion --conditions actual,actualinverse,actualprimed,actualprimedcontrol,fake,fakeinverse --max_tokens 100 --model gpt-4-0613
-python run_openai.py --tasks conversion --conditions actual,actualinverse,actualprimed,actualprimedcontrol,fake,fakeinverse --max_tokens 100 --model gpt-3.5-turbo-0613
+python run_openai_locally.py --tasks conversion --conditions actual,actualinverse,actualprimed,actualprimedcontrol,fake,fakeinverse --max_tokens 100 --model gpt-oss-20b
+python run_openai_locally.py --tasks conversion_ood --conditions actual,actualinverse,actualprimed,actualprimedcontrol,fake,fakeinverse --max_tokens 100 --model gpt-oss-20b
 
-python run_openai.py --tasks conversion_ood --conditions actual,actualinverse,actualprimed,actualprimedcontrol,fake,fakeinverse --max_tokens 100 --model gpt-4-0613
-python run_openai.py --tasks conversion_ood --conditions actual,actualinverse,actualprimed,actualprimedcontrol,fake,fakeinverse --max_tokens 100 --model gpt-3.5-turbo-0613
+python run_ollama_qwen3_27b.py --tasks conversion --conditions actual,actualinverse,actualprimed,actualprimedcontrol,fake,fakeinverse 
+python run_ollama_qwen3_27b.py --tasks conversion_ood --conditions actual,actualinverse,actualprimed,actualprimedcontrol,fake,fakeinverse
 ```
 
-
-
-# Keyboard cipher task
-
-## Example generation
-- This task uses the same examples as the rot-13 task.
-
-## Stimulus generation
-- Done with `stimulus_generation_scripts/stimulus_generator_keyboard.py`
-
-## Model testing
-- Run these commands:
-```
-python run_openai.py --tasks keyboardcot,keyboardcotreference,keyboardcotdetailed --conditions highprob --max_tokens 4000 --model gpt-4-0613
-python run_openai.py --tasks keyboardcot,keyboardcotreference,keyboardcotdetailed --conditions highprob --max_tokens 3000 --model gpt-3.5-turbo-0613
-```
 
 # Sorting tasks
 
@@ -200,13 +193,15 @@ python sort_numbers.py
 ## Model testing
 - Run these commands:
 ```
-python run_openai.py --tasks sorting --conditions fwd,rev,ascending,descending --max_tokens 200 --model gpt-4-0613
-python run_openai.py --tasks sorting --conditions fwd,rev,ascending,descending --max_tokens 200 --model gpt-3.5-turbo-0613
+python run_openai_locally.py --tasks sorting --conditions fwd,rev,ascending,descending --max_tokens 200 --model gpt-oss-20b
+
+python run_ollama_qwen3_27b.py --tasks sorting --conditions fwd,rev,ascending,descending
 ```
+
 # Generating the graphs
 For generating the graphs, the scripts graph.py and rare_vs_common_graph.py need to be ran. They take the data from the viz_data directory.
 
-In order to run the files on any desired json file, the following lines from it must be modified, as they are hard coded.
+In order to run the files on any desired JSON file, the following lines in them must be modified, as they are hard-coded.
 
 ## graphs.py
 
@@ -216,7 +211,7 @@ DATA_DIR = "viz_data/logs_ollama" #directory where the data to be used it
 OUTPUT_DIR = "graphs" #directory where the graphs will be saved
 OUT_NAME = "Qwen3.8-27B_graphs" #name of the graph generated
 ```
-Additionally, there are a few optional parameters that were hard coded as part of the limitation of reproducing the original research, used to accommodate our naming conventions. They can be deleted or reused depending on other name conventions.
+Additionally, there are a few optional parameters that were hard-coded as part of the limitations of reproducing the original research, used to accommodate our naming conventions. They can be deleted or reused depending on other naming conventions.
 ```
 SUFFIX = "n=1.json" #optional addition to the path to accommodate name convention
 COND = {"low": "lowprob", "medium": "mediumprob", "high": "highprob"} #optional addition to the path to accommodate name convention
@@ -242,7 +237,7 @@ PANELS = [
 ```
 There is another hard codded element into the previous code, which is the x axis of the panels. It represents the log probability of the tasks that were being tested, and the original work does not provide a computation method for them, so we hard coded them in a similar fashion. If needed, these should be changed to accommodate the graphs being generated. Ideally, they should not be hard coded like we did.
 ```
-#x axes for each task
+# x-axes for each task
 STIMULUS_LOGPROB = {
     "rot":      {"low": -144.54, "medium": -86.25, "high": -58.38}, 
     "pig":      {"low": -132.26, "medium": -86.86, "high": -62.54},
