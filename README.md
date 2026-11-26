@@ -208,7 +208,7 @@ For generating the graphs, the scripts graph.py and rare_vs_common_graph.py. The
 
 In order to run the files on any desired json file, the following lines from it must be modified, as they are hard coded.
 
-##graphs.py
+## graphs.py
 
 To use this script, first modify the constants referring to the directory paths for saving and utilizing the files you want.
 ```
@@ -247,5 +247,5 @@ STIMULUS_LOGPROB = {
     "swap":     {"low": -161.4,  "medium": -101.7, "high": -68.4},
 }
 ```
-##rare_vs_common_graph.py
+## rare_vs_common_graph.py
 
