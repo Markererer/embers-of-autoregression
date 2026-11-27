@@ -17,7 +17,7 @@ OUTPUT_DIR = "graphs"
 OUT_NAME = "bars_graphs"
 SUFFIX = "n=1.json"
 VARIANTS = ["rare", "common"]
-PALETTE = ["#F72811", "#C77CFF", "#F8766D", "#B79F00", "#00BA38", "#00A9FF"]  # #C77CFF Qwen Color / #F72811 gpt Color
+PALETTE = ["#C77CFF", "#F72811", "#F8766D", "#B79F00", "#00BA38", "#00A9FF"]  # #C77CFF Qwen Color / #F72811 gpt Color
 
 
 def f(prefix, data_dir):
@@ -29,44 +29,44 @@ def f(prefix, data_dir):
 # Add more models as extra entries, more columns as extra keys.
 COLUMNS = {
     "Acronyms": {
-        "gpt-oss-20b": {"rare": f("acronym2_11", DATA_DIR), 
-                        "common": f("acronym1_11", DATA_DIR)},
+        #"gpt-oss-20b": {"rare": f("acronym2_11", DATA_DIR), 
+        #                "common": f("acronym1_11", DATA_DIR)},
         "Qwen3.8-27B": {"rare": f("acronym2_11", DATA_DIR2), 
                         "common": f("acronym1_11", DATA_DIR2)},
     },
     "Conv. Actual": {
-        "gpt-oss-20b": {"rare": f("conversion_actualinverse", DATA_DIR),
-                        "common": f("conversion_actual", DATA_DIR)},
+        #"gpt-oss-20b": {"rare": f("conversion_actualinverse", DATA_DIR),
+        #                "common": f("conversion_actual", DATA_DIR)},
         "Qwen3.8-27B": {"rare": f("conversion_actualinverse", DATA_DIR2), 
                         "common": f("conversion_actual", DATA_DIR2)},
     },
     "Conv. Fake": {
-        "gpt-oss-20b": {"rare": f("conversion_fakeinverse", DATA_DIR),
-                        "common": f("conversion_fake", DATA_DIR)},
+        #"gpt-oss-20b": {"rare": f("conversion_fakeinverse", DATA_DIR),
+        #                "common": f("conversion_fake", DATA_DIR)},
         "Qwen3.8-27B": {"rare": f("conversion_fakeinverse", DATA_DIR2), 
                         "common": f("conversion_fake", DATA_DIR2)},
     },
     "Conv. Odd Actual": {
-        "gpt-oss-20b": {"rare": f("conversion_ood_actualinverse", DATA_DIR),
-                        "common": f("conversion_ood_actual", DATA_DIR)},
+        #"gpt-oss-20b": {"rare": f("conversion_ood_actualinverse", DATA_DIR),
+        #                "common": f("conversion_ood_actual", DATA_DIR)},
         "Qwen3.8-27B": {"rare": f("conversion_ood_actualinverse", DATA_DIR2), 
                         "common": f("conversion_ood_actual", DATA_DIR2)},
     },
     "Conv. Odd Fake": {
-        "gpt-oss-20b": {"rare": f("conversion_ood_fakeinverse", DATA_DIR),
-                        "common": f("conversion_ood_fake", DATA_DIR)},
+        #"gpt-oss-20b": {"rare": f("conversion_ood_fakeinverse", DATA_DIR),
+        #                "common": f("conversion_ood_fake", DATA_DIR)},
         "Qwen3.8-27B": {"rare": f("conversion_ood_fakeinverse", DATA_DIR2), 
                         "common": f("conversion_ood_fake", DATA_DIR2)},
     },
     "Sort 1": {
-        "gpt-oss-20b": {"rare": f("sorting_descending", DATA_DIR),
-                        "common": f("sorting_ascending", DATA_DIR)},
+        #"gpt-oss-20b": {"rare": f("sorting_descending", DATA_DIR),
+        #                "common": f("sorting_ascending", DATA_DIR)},
         "Qwen3.8-27B": {"rare": f("sorting_descending", DATA_DIR2), 
                         "common": f("sorting_ascending", DATA_DIR2)},
     },
     "Sort 2": {
-        "gpt-oss-20b": {"rare": f("sorting_fwd", DATA_DIR),
-                        "common": f("sorting_rev", DATA_DIR)},
+        #"gpt-oss-20b": {"rare": f("sorting_fwd", DATA_DIR),
+        #                "common": f("sorting_rev", DATA_DIR)},
         "Qwen3.8-27B": {"rare": f("sorting_fwd", DATA_DIR2), 
                         "common": f("sorting_rev", DATA_DIR2)},
     },

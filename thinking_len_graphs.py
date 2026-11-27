@@ -34,35 +34,35 @@ def levels(prefix, data_dir):
 # panel title, stimulus log-prob set, {model label: {level: path}}
 PANELS = [
     dict(title="Shift cipher enc (rot-12)", logprob="rot", runs={
-        "gpt-oss-20B": levels("rot12enc", DATA_DIR),
+        #"gpt-oss-20B": levels("rot12enc", DATA_DIR),
         "Qwen3.8-27B": levels("rot12enc", DATA_DIR2),
     }),
     dict(title="Shift cipher dec (rot-12)", logprob="rot", runs={
-        "gpt-oss-20B": levels("rot12dec", DATA_DIR),
+        #"gpt-oss-20B": levels("rot12dec", DATA_DIR),
         "Qwen3.8-27B": levels("rot12dec", DATA_DIR2),
     }),
     dict(title="Shift cipher enc (rot-13)", logprob="rot", runs={
-        "gpt-oss-20B": levels("rot13enc", DATA_DIR),
+        #"gpt-oss-20B": levels("rot13enc", DATA_DIR),
         "Qwen3.8-27B": levels("rot13enc", DATA_DIR2),
     }),
     dict(title="Shift cipher dec (rot-13)", logprob="rot", runs={
-        "gpt-oss-20B": levels("rot13dec", DATA_DIR),
+        #"gpt-oss-20B": levels("rot13dec", DATA_DIR),
         "Qwen3.8-27B": levels("rot13dec", DATA_DIR2),
     }),
     dict(title="Pig Latin Enc", logprob="pig", runs={
-        "gpt-oss-20B": levels("pigenc_ay", DATA_DIR),
+        #"gpt-oss-20B": levels("pigenc_ay", DATA_DIR),
         "Qwen3.8-27B": levels("pigenc_ay", DATA_DIR2),
     }),
     dict(title="Pig Latin Dec", logprob="pig", runs={
-        "gpt-oss-20B": levels("pigdec_ay", DATA_DIR),
+        #"gpt-oss-20B": levels("pigdec_ay", DATA_DIR),
         "Qwen3.8-27B": levels("pigdec_ay", DATA_DIR2),
     }),
     dict(title="Rev Enc", logprob="reversal", runs={
-        "gpt-oss-20B": levels("revenc", DATA_DIR),
+        #"gpt-oss-20B": levels("revenc", DATA_DIR),
         "Qwen3.8-27B": levels("revenc", DATA_DIR2),
     }),
     dict(title="Rev Dec", logprob="reversal", runs={
-        "gpt-oss-20B": levels("revdec", DATA_DIR),
+        #"gpt-oss-20B": levels("revdec", DATA_DIR),
         "Qwen3.8-27B": levels("revdec", DATA_DIR2),
     }),
 ]
@@ -74,7 +74,7 @@ STIMULUS_LOGPROB = {          # source: logprob_* in embers_0504_alldecoding.R
     "swap":     {"low": -161.4,  "medium": -101.7, "high": -68.4},
 }
 
-PALETTE = ["#F72811", "#C77CFF", "#F8766D", "#B79F00", "#00BA38", "#00A9FF"] # #C77CFF Qwen Color / #F72811 gpt Color
+PALETTE = ["#C77CFF", "#F72811", "#F8766D", "#B79F00", "#00BA38", "#00A9FF"] # #C77CFF Qwen Color / #F72811 gpt Color
 MARKERS = ["s", "^", "o", "D", "o", "v"]
 MARKER_SIZES = [8, 8, 8, 8, 6, 8]
 # optional per-model look (the paper draws o1-preview as a blue downward triangle)
