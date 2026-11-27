@@ -30,14 +30,6 @@ def levels(prefix, data_dir):
 # panel title, which stimulus log-prob set to use, {model label: {level name: path}}.
 # Remove a level from a dict (or a whole model/panel) if you don't have it.
 PANELS = [
-    dict(title="Shift cipher enc (rot-12)", logprob="rot", runs={
-        #"gpt-oss-20B": levels("rot12enc", DATA_DIR),
-        "Qwen3.8-27B": levels("rot12enc", DATA_DIR2),
-    }),
-    dict(title="Shift cipher dec (rot-12)", logprob="rot", runs={
-        #"gpt-oss-20B": levels("rot12dec", DATA_DIR),
-        "Qwen3.8-27B": levels("rot12dec", DATA_DIR2),
-    }),
     dict(title="Shift cipher enc (rot-13)", logprob="rot", runs={
         #"gpt-oss-20B": levels("rot13enc", DATA_DIR),
         "Qwen3.8-27B": levels("rot13enc", DATA_DIR2),
@@ -65,10 +57,6 @@ PANELS = [
     dict(title="Swap Next", logprob="swap", runs={
         #"gpt-oss-20B": levels("zeroshot_swap_next_base", DATA_DIR),
         "Qwen3.8-27B": levels("zeroshot_swap_next_base", DATA_DIR2),
-    }),
-    dict(title="Swap Prev", logprob="swap", runs={
-        #"gpt-oss-20B": levels("zeroshot_swap_prev_base", DATA_DIR),
-        "Qwen3.8-27B": levels("zeroshot_swap_prev_base", DATA_DIR2),
     }),
 ]
 

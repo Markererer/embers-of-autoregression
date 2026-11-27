@@ -31,14 +31,6 @@ def levels(prefix, data_dir):
 
 # panel title, stimulus log-prob set, {model label: {level: path}}
 PANELS = [
-    dict(title="Shift cipher enc (rot-12)", logprob="rot", runs={
-        #"gpt-oss-20B": levels("rot12enc", DATA_DIR),
-        "Qwen3.8-27B": levels("rot12enc", DATA_DIR2),
-    }),
-    dict(title="Shift cipher dec (rot-12)", logprob="rot", runs={
-        #"gpt-oss-20B": levels("rot12dec", DATA_DIR),
-        "Qwen3.8-27B": levels("rot12dec", DATA_DIR2),
-    }),
     dict(title="Shift cipher enc (rot-13)", logprob="rot", runs={
         #"gpt-oss-20B": levels("rot13enc", DATA_DIR),
         "Qwen3.8-27B": levels("rot13enc", DATA_DIR2),
@@ -62,6 +54,10 @@ PANELS = [
     dict(title="Rev Dec", logprob="reversal", runs={
         #"gpt-oss-20B": levels("revdec", DATA_DIR),
         "Qwen3.8-27B": levels("revdec", DATA_DIR2),
+    }),
+    dict(title="Swap Next", logprob="swap", runs={
+        #"gpt-oss-20B": levels("zeroshot_swap_next_base", DATA_DIR),
+        "Qwen3.8-27B": levels("zeroshot_swap_next_base", DATA_DIR2),
     }),
 ]
 

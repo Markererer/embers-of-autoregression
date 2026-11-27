@@ -32,23 +32,11 @@ def f(prefix, data_dir):
 # column title -> {model label: {"rare": path, "common": path}}
 # Add more models as extra entries, more columns as extra keys.
 COLUMNS = {
-    "Shift Enc": {
-        #"gpt-oss-20b": {"rare": f("acronym2_11", DATA_DIR), 
-        #                "common": f("acronym1_11", DATA_DIR)},
-        "Qwen3.8-27B": {"rare": f("rot12enc_mediumprob", DATA_DIR2), 
-                        "common": f("rot13enc_mediumprob", DATA_DIR2)},
-    },
     "Shift Dec": {
         #"gpt-oss-20b": {"rare": f("conversion_actualinverse", DATA_DIR),
         #                "common": f("conversion_actual", DATA_DIR)},
         "Qwen3.8-27B": {"rare": f("rot12dec_mediumprob", DATA_DIR2), 
                         "common": f("rot13dec_mediumprob", DATA_DIR2)},
-    },
-    "Pig Dec": {
-        #"gpt-oss-20b": {"rare": f("conversion_fakeinverse", DATA_DIR),
-        #                "common": f("conversion_fake", DATA_DIR)},
-        "Qwen3.8-27B": {"rare": f("pigenc_uv_mediumprob", DATA_DIR2), 
-                        "common": f("pigenc_ay_mediumprob", DATA_DIR2)},
     },
     "Pig Enc": {
         #"gpt-oss-20b": {"rare": f("conversion_ood_actualinverse", DATA_DIR),
