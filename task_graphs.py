@@ -63,6 +63,14 @@ PANELS = [
         "gpt-oss-20B": levels("revdec", DATA_DIR),
         "Qwen3.8-27B": levels("revdec", DATA_DIR2),
     }),
+    dict(title="Swap Next", logprob="swap", runs={
+        "gpt-oss-20B": levels("zeroshot_swap_next_base", DATA_DIR),
+        "Qwen3.8-27B": levels("zeroshot_swap_next_base", DATA_DIR2),
+    }),
+    dict(title="Swap Prev", logprob="swap", runs={
+        "gpt-oss-20B": levels("zeroshot_swap_prev_base", DATA_DIR),
+        "Qwen3.8-27B": levels("zeroshot_swap_prev_base", DATA_DIR2),
+    }),
 ]
 
 # Stimulus log probabilities (properties of the task data, not results).
