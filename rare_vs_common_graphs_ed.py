@@ -1,10 +1,3 @@
-"""Rare-vs-common bar chart (one row per model), in the style of the Embers/o1 figure.
-
-
-Files are listed by hand in COLUMNS and assigned to "rare" / "common" by name.
-Edit distance (the JSON's 'ed') and its standard error (from the per-example 'eds') are plotted.
-Acronyms: acronym1 = first letter of each word (common), acronym2 = second letter (rare).
-"""
 import json
 import math
 import os
@@ -12,7 +5,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-# ============================== Inputs (edit this) ==============================
 DATA_DIR = "viz_data/logs_gpt-oss-20B"
 DATA_DIR2 = "viz_data/logs_qwen3.8-27B"
 OUTPUT_DIR = "graphs"
@@ -28,9 +20,6 @@ def f(prefix, data_dir):
 
 
 
-
-# column title -> {model label: {"rare": path, "common": path}}
-# Add more models as extra entries, more columns as extra keys.
 COLUMNS = {
     "Shift Dec": {
         #"gpt-oss-20b": {"rare": f("conversion_actualinverse", DATA_DIR),
@@ -65,17 +54,13 @@ COLUMNS = {
 }
 REQUIRED_KEYS = {"prompts", "gts", "res", "accs", "acc", "eds", "ed"}
 
-
-# Layout, all in inches
-PANEL_W, PANEL_H = 2.0, 1.5        # size of one bar panel
-WSPACE, HSPACE = 0.12, 0.12        # gaps between panels, as a fraction of panel size
-LEFT, BOTTOM = 0.8, 0.75           # room for the y label / tick labels, and rotated x labels
-HEADER_H = 0.3                     # column title strip, attached to the top of each panel
-LABEL_GAP, LABEL_W = 0.12, 0.32    # gap between the last panel and the model-name box, and box width
+PANEL_W, PANEL_H = 2.0, 1.5        
+WSPACE, HSPACE = 0.12, 0.12       
+LEFT, BOTTOM = 0.8, 0.75          
+HEADER_H = 0.3                    
+LABEL_GAP, LABEL_W = 0.12, 0.32   
 
 
-
-# ============================== Loading ==============================
 def load_point(path):
     with open(path, encoding="utf-8") as fh:
         d = json.load(fh)
@@ -90,7 +75,6 @@ def load_point(path):
 
 
 def collect():
-    """acc[(column, model, variant)] = (mean edit distance, standard error)."""
     acc = {}
     for col, models in COLUMNS.items():
         for model, paths in models.items():
@@ -105,9 +89,7 @@ def collect():
 
 
 
-# ============================== Plotting ==============================
 def strip(fig, rect, text, rotation=0):
-    """Grey ggplot-style label box at an absolute figure rectangle [x0, y0, w, h]."""
     s = fig.add_axes(rect)
     s.set_facecolor("#D9D9D9")
     s.set_xticks([]); s.set_yticks([])
@@ -128,8 +110,6 @@ def main():
     color = {m: PALETTE[i % len(PALETTE)] for i, m in enumerate(models)}
     nrows, ncols = len(models), len(cols)
 
-
-    # Figure size from the layout, so every panel is exactly PANEL_W x PANEL_H inches
     right = LABEL_GAP + LABEL_W + 0.1
     top = HEADER_H + 0.1
     grid_w = ncols * PANEL_W * (1 + WSPACE) - WSPACE * PANEL_W
@@ -166,10 +146,10 @@ def main():
                 sp.set_edgecolor("#333333")
 
 
-            pos = ax.get_position()                     # fixed by the grid, so safe to read now
-            if r == 0:                                  # column title, touching the top of the panel
+            pos = ax.get_position()                     
+            if r == 0:                                  
                 strip(fig, [pos.x0, pos.y1, pos.width, HEADER_H / H], col)
-            if c == ncols - 1:                          # model name, with a clear gap to the right
+            if c == ncols - 1:                          
                 strip(fig, [pos.x1 + LABEL_GAP / W, pos.y0, LABEL_W / W, pos.height], m, rotation=-90)
 
 

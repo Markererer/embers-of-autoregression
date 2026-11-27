@@ -1,25 +1,16 @@
-"""Embers-style figure: one panel per task, one line per model, accuracy vs output log probability.
-
-Files are chosen by hand in PANELS and assigned to a probability level BY NAME
-("low" / "medium" / "high"), so file order or sorting never matters.
-Accuracy and standard error come from each JSON's own per-example 'accs'.
-The only constants are the stimulus log-probabilities (x-axis) from embers_0504_alldecoding.R.
-"""
 import json
 import math
 import os
-
 import matplotlib.pyplot as plt
 import numpy as np
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 
-# ============================== Inputs (edit this) ==============================
+
 DATA_DIR = "viz_data/logs_gpt-oss-20B"
 DATA_DIR2 = "viz_data/logs_qwen3.8-27B"
 OUTPUT_DIR = "graphs"
 OUT_NAME = "tasks_graphs"
 SUFFIX = "n=1.json"
-
 COND = {"low": "lowprob", "medium": "mediumprob", "high": "highprob"}
 
 
@@ -27,8 +18,6 @@ def levels(prefix, data_dir):
     return {lvl: os.path.join(data_dir, f"{prefix}_{cond}_{SUFFIX}") for lvl, cond in COND.items()}
 
 
-# panel title, which stimulus log-prob set to use, {model label: {level name: path}}.
-# Remove a level from a dict (or a whole model/panel) if you don't have it.
 PANELS = [
     dict(title="Shift cipher enc (rot-13)", logprob="rot", runs={
         #"gpt-oss-20B": levels("rot13enc", DATA_DIR),
@@ -60,8 +49,6 @@ PANELS = [
     }),
 ]
 
-# Stimulus log probabilities (properties of the task data, not results).
-# Source: logprob_rot / logprob_pig / logprob_rev / logprob_swap in embers_0504_alldecoding.R
 STIMULUS_LOGPROB = {
     "rot":      {"low": -144.54, "medium": -86.25, "high": -58.38},
     "pig":      {"low": -132.26, "medium": -86.86, "high": -62.54},
@@ -75,7 +62,6 @@ MARKER_SIZES = [8, 8, 8, 8, 6, 8]
 REQUIRED_KEYS = {"prompts", "gts", "res", "accs", "acc", "eds", "ed"}
 
 
-# ============================== Loading ==============================
 def load_point(path):
     with open(path, encoding="utf-8") as f:
         d = json.load(f)
@@ -113,7 +99,7 @@ def build(panels):
     return data
 
 
-# ============================== Plotting ==============================
+
 def add_strip(ax, title):
     strip = make_axes_locatable(ax).append_axes("top", size="14%", pad=0)
     strip.set_facecolor("#D9D9D9")
@@ -138,7 +124,7 @@ def main():
     plt.subplots_adjust(top=0.74, bottom=0.2, left=0.06, right=0.99, wspace=0.08)
     for ax, (title, series) in zip(axes[0], data):
         for model, pts in series.items():
-            pts = sorted(pts)                                    # sorted by x, so file order is irrelevant
+            pts = sorted(pts)                                   
             x, y, se = (np.array(c, dtype=float) for c in zip(*pts))
             st = style[model]
             ax.fill_between(x, np.clip(y - se, 0, 1), np.clip(y + se, 0, 1),

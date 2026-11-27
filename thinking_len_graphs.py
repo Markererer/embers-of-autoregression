@@ -1,35 +1,25 @@
-"""Thinking length vs output log probability (cf. Fig. 2 of the o1 'embers' paper).
-
-One panel per task, one line per model; y = median thinking length (characters of the JSON's
-'thinking' entries) of each group of examples, x = stimulus log probability of that group.
-Files are listed by hand and assigned to a level by name. Everything plotted is computed from the
-JSONs; the only constants are the stimulus log-probs (from embers_0504_alldecoding.R).
-"""
 import json
 import os
-
 import matplotlib.pyplot as plt
 import numpy as np
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 
-# ============================== Inputs (edit this) ==============================
 DATA_DIR = "viz_data/logs_gpt-oss-20B"
 DATA_DIR2 = "viz_data/logs_qwen3.8-27B"
 OUTPUT_DIR = "graphs"
 OUT_NAME = "think_len_graphs"
 SUFFIX = "n=1.json"
-
-SHOW_IQR = False       # shade the 25th-75th percentile band around each median
-SHARE_Y = True         # paper figure: one shared y axis, free x axis per panel
+SHOW_IQR = False      
+SHARE_Y = True         
 LOG_Y = False
-FALLBACK_TO_RES = False   # True: files without a 'thinking' key use the part of 'res' before 'assistantfinal'
+FALLBACK_TO_RES = False   
 
-COND = {"low": "lowprob", "medium": "mediumprob", "high": "highprob"}   # change if your files say "medprob"
+COND = {"low": "lowprob", "medium": "mediumprob", "high": "highprob"}   
 
 def levels(prefix, data_dir):
     return {lvl: os.path.join(data_dir, f"{prefix}_{cond}_{SUFFIX}") for lvl, cond in COND.items()}
 
-# panel title, stimulus log-prob set, {model label: {level: path}}
+
 PANELS = [
     dict(title="Shift cipher enc (rot-13)", logprob="rot", runs={
         #"gpt-oss-20B": levels("rot13enc", DATA_DIR),
@@ -61,7 +51,7 @@ PANELS = [
     }),
 ]
 
-STIMULUS_LOGPROB = {          # source: logprob_* in embers_0504_alldecoding.R
+STIMULUS_LOGPROB = {          
     "rot":      {"low": -144.54, "medium": -86.25, "high": -58.38},
     "pig":      {"low": -132.26, "medium": -86.86, "high": -62.54},
     "reversal": {"low": -144.54, "medium": -86.25, "high": -58.38},
@@ -71,13 +61,10 @@ STIMULUS_LOGPROB = {          # source: logprob_* in embers_0504_alldecoding.R
 PALETTE = ["#C77CFF", "#F72811", "#F8766D", "#B79F00", "#00BA38", "#00A9FF"] # #C77CFF Qwen Color / #F72811 gpt Color
 MARKERS = ["s", "^", "o", "D", "o", "v"]
 MARKER_SIZES = [8, 8, 8, 8, 6, 8]
-# optional per-model look (the paper draws o1-preview as a blue downward triangle)
 MODEL_STYLE = {
     "gpt-oss-20b": dict(color="#00A9FF", marker="v", ms=8),
 }
 
-
-# ============================== Thinking length ==============================
 def thinking_lengths(d, path):
     """Character length of each example's thinking.
 
@@ -127,8 +114,6 @@ def build(panels):
             print(f"Panel '{panel['title']}' has no usable files; skipped.")
     return data
 
-
-# ============================== Plotting ==============================
 def add_strip(ax, title):
     strip = make_axes_locatable(ax).append_axes("top", size="14%", pad=0)
     strip.set_facecolor("#D9D9D9")
