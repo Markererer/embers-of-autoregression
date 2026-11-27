@@ -26,10 +26,8 @@ FALLBACK_TO_RES = False   # True: files without a 'thinking' key use the part of
 
 COND = {"low": "lowprob", "medium": "mediumprob", "high": "highprob"}   # change if your files say "medprob"
 
-
 def levels(prefix, data_dir):
     return {lvl: os.path.join(data_dir, f"{prefix}_{cond}_{SUFFIX}") for lvl, cond in COND.items()}
-
 
 # panel title, stimulus log-prob set, {model label: {level: path}}
 PANELS = [

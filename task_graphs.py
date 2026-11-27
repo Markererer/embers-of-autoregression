@@ -27,7 +27,6 @@ def levels(prefix, data_dir):
     return {lvl: os.path.join(data_dir, f"{prefix}_{cond}_{SUFFIX}") for lvl, cond in COND.items()}
 
 
-
 # panel title, which stimulus log-prob set to use, {model label: {level name: path}}.
 # Remove a level from a dict (or a whole model/panel) if you don't have it.
 PANELS = [
